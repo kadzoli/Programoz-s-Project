@@ -2,47 +2,69 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from sklearn.linear_model import LinearRegression
 import numpy as np
+import tkinter as tk
+from tkinter import messagebox
 
-# Fájl beolvasása
-file_path = '/Users/kadzoli/projects/test/stadat-lak0013-18.1.1.13-hu.xlsx'  # Ide az elérési útvonalat írd be ahol a táblázat van
+# File Path
+file_path = r"C:\Users\judit\Desktop\GDE\Programozás\project\stadat-lak0013-18.1.1.13-hu.xlsx"  # Modify this to your file path
 data = pd.read_excel(file_path, skiprows=2)
 
-# Oszlopok átnevezése
+# Rename Columns
 years = [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023]
 data.columns = ['Típus'] + years
 
-# Csak a releváns sorok megtartása
+# Filter Rows
 data_filtered = data.dropna(subset=years, how='all')
 
-# Lineáris regresszió a "tiszta árváltozás" adatokra
+# Linear Regression Data for "tiszta árváltozás"
 tiszta_arvaltozas = data_filtered[data_filtered['Típus'] == 'tiszta árváltozás'].iloc[0, 1:].values
 X = np.array(years).reshape(-1, 1)
 y = tiszta_arvaltozas
 
-# Regresszió modell
+# Regression Model
 model = LinearRegression()
 model.fit(X, y)
 
-# Két diagram együttes megjelenítése
-fig, axs = plt.subplots(1, 2, figsize=(16, 6))  # 1 sor, 2 oszlop elrendezés
+# Define Plot Functions
+def show_scatter():
+    """Show scatter plot of all housing market types."""
+    plt.figure(figsize=(10, 6))
+    for típus in data_filtered['Típus'].unique():
+        plt.plot(years, data_filtered[data_filtered['Típus'] == típus].iloc[0, 1:], label=típus)
+    plt.xlabel('Év')
+    plt.ylabel('Árindex')
+    plt.title('Lakáspiaci árindexek időbeli változása')
+    plt.legend()
+    plt.grid(visible=True, linestyle='--', alpha=0.5)
+    plt.show()
 
-# Vonaldiagram
-for típus in data_filtered['Típus'].unique():
-    axs[0].plot(years, data_filtered[data_filtered['Típus'] == típus].iloc[0, 1:], label=típus)
-axs[0].set_xlabel('Év')
-axs[0].set_ylabel('Árindex')
-axs[0].set_title('Lakáspiaci árindexek időbeli változása')
-axs[0].legend()
-axs[0].grid(visible=True, linestyle='--', alpha=0.5)
+def show_regression():
+    """Show regression plot for 'tiszta árváltozás'."""
+    plt.figure(figsize=(10, 6))
+    plt.scatter(X, y, color='blue', label='Eredeti adatok')
+    plt.plot(X, model.predict(X), color='red', label='Lineáris regresszió')
+    plt.xlabel('Év')
+    plt.ylabel('Tiszta árváltozás index')
+    plt.title('Lineáris regresszió: Tiszta árváltozás index')
+    plt.legend()
+    plt.grid(visible=True, linestyle='--', alpha=0.5)
+    plt.show()
 
-# Lineáris regresszió diagram
-axs[1].scatter(X, y, color='blue', label='Eredeti adatok')
-axs[1].plot(X, model.predict(X), color='red', label='Lineáris regresszió')
-axs[1].set_xlabel('Év')
-axs[1].set_ylabel('Tiszta árváltozás index')
-axs[1].set_title('Lineáris regresszió: Tiszta árváltozás index')
-axs[1].legend()
-axs[1].grid(visible=True, linestyle='--', alpha=0.5)
+# Tkinter GUI Setup
+root = tk.Tk()
+root.title("Interactive Graph Viewer")
 
-plt.tight_layout()
-plt.show()
+# Scatter Plot Button
+scatter_button = tk.Button(root, text="Vonaldiagram", command=show_scatter)
+scatter_button.pack(pady=5)
+
+# Regression Plot Button
+regression_button = tk.Button(root, text="Lineáris Regresszió", command=show_regression)
+regression_button.pack(pady=5)
+
+# Exit Button
+exit_button = tk.Button(root, text="Kilépés", command=root.quit)
+exit_button.pack(pady=5)
+
+# Run Tkinter Event Loop
+root.mainloop()
