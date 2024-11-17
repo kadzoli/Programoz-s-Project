@@ -6,9 +6,9 @@ import tkinter as tk
 from tkinter import messagebox
 
 # File Paths
-file_path_lakasar = '/Users/kadzoli/projects/test/eves_lakasar_valtozas_2010_2023.xlsx'
-file_path_atlagkereset = '/Users/kadzoli/projects/test/magyar_atlagkereset_2010_2023.xlsx'
-file_path_atlagos_lakasar = '/Users/kadzoli/projects/test/atlagos_lakasar_2010_2023.xlsx'
+file_path_lakasar = 'eves_lakasar_valtozas_2010_2023.xlsx'
+file_path_atlagkereset = 'magyar_atlagkereset_2010_2023.xlsx'
+file_path_atlagos_lakasar = 'atlagos_lakasar_2010_2023.xlsx'
 
 # Load Data from Excel files
 data_lakasar = pd.read_excel(file_path_lakasar)
