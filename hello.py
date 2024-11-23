@@ -1,5 +1,6 @@
 import pandas as pd
 import matplotlib.pyplot as plt
+from matplotlib.animation import FuncAnimation
 from sklearn.linear_model import LinearRegression
 import numpy as np
 import tkinter as tk
@@ -54,8 +55,9 @@ model_atlagkereset = LinearRegression()
 model_atlagkereset.fit(X_atlagkereset, y_atlagkereset)
 
 # Define Plot Functions
+"""
 def show_lakasar_scatter():
-    """Show scatter plot of housing market index."""
+    #Show scatter plot of housing market index.
     plt.figure(figsize=(10, 6))
     plt.plot(data_lakasar_filtered['Év'], data_lakasar_filtered['Lakásár Index'], label='Lakásár Index', marker='o')
     for x, y in zip(data_lakasar_filtered['Év'], data_lakasar_filtered['Lakásár Index']):
@@ -66,6 +68,45 @@ def show_lakasar_scatter():
     plt.xticks(data_lakasar_filtered['Év'])  # Show all years
     plt.legend()
     plt.grid(visible=True, linestyle='--', alpha=0.5)
+    plt.show()
+"""
+
+def animate_lakasar_with_values():
+    """Create animation for housing market index with value labels."""
+    fig, ax = plt.subplots(figsize=(10, 6))
+    x_data, y_data = [], []
+    line, = ax.plot([], [], 'b-o', label='Lakásár Index')
+    text_annotations = []
+
+    # Beállítjuk az ábra paramétereit
+    ax.set_xlim(data_lakasar_filtered['Év'].min(), data_lakasar_filtered['Év'].max())
+    ax.set_ylim(data_lakasar_filtered['Lakásár Index'].min() - 10, data_lakasar_filtered['Lakásár Index'].max() + 10)
+
+    # Minden év címkéjének megjelenítése
+    ax.set_xticks(data_lakasar_filtered['Év'])
+    ax.set_title('Lakásár Index Animáció Értékekkel')
+    ax.set_xlabel('Év')
+    ax.set_ylabel('Lakásár Index')
+    ax.legend()
+    ax.grid(visible=True, linestyle='--', alpha=0.5)
+
+    def update(frame):
+        """Frissíti az adatokat és az értékek megjelenítését minden frame-nél."""
+        # Hozzáadjuk az aktuális évet és index értéket
+        x_data.append(data_lakasar_filtered['Év'].iloc[frame])
+        y_data.append(data_lakasar_filtered['Lakásár Index'].iloc[frame])
+
+        # Frissítjük a vonalat
+        line.set_data(x_data, y_data)
+    
+        # Új értékek megjelenítése az aktuális pontoknál
+        for x, y in zip(x_data, y_data):
+            annotation = ax.text(x, y, f'{y:.2f}', fontsize=10, ha='center', va='bottom')
+            text_annotations.append(annotation)
+
+        return line, *text_annotations
+
+    ani = FuncAnimation(fig, update, frames=len(data_lakasar_filtered), interval=500, repeat=False)
     plt.show()
 
 def show_lakasar_regression():
@@ -81,8 +122,9 @@ def show_lakasar_regression():
     plt.grid(visible=True, linestyle='--', alpha=0.5)
     plt.show()
 
+"""
 def show_atlagkereset_scatter():
-    """Show scatter plot of average income."""
+    #Show scatter plot of average income.
     plt.figure(figsize=(10, 6))
     plt.plot(data_atlagkereset_filtered['Év'], data_atlagkereset_filtered['Bruttó Átlagkereset'], label='Bruttó Átlagkereset', marker='o')
     for x, y in zip(data_atlagkereset_filtered['Év'], data_atlagkereset_filtered['Bruttó Átlagkereset']):
@@ -93,6 +135,45 @@ def show_atlagkereset_scatter():
     plt.xticks(data_atlagkereset_filtered['Év'])  # Show all years
     plt.legend()
     plt.grid(visible=True, linestyle='--', alpha=0.5)
+    plt.show()
+"""
+
+def animate_atlagkereset_with_values():
+    """Create animation for average income scatter plot with values."""
+    fig, ax = plt.subplots(figsize=(10, 6))
+    x_data, y_data = [], []
+    line, = ax.plot([], [], 'b-o', label='Bruttó Átlagkereset')
+    text_annotations = []
+
+    # Beállítjuk az ábra paramétereit
+    ax.set_xlim(data_atlagkereset_filtered['Év'].min(), data_atlagkereset_filtered['Év'].max())
+    ax.set_ylim(data_atlagkereset_filtered['Bruttó Átlagkereset'].min() - 5000, data_atlagkereset_filtered['Bruttó Átlagkereset'].max() + 5000)
+
+    # Minden év címkéjének megjelenítése
+    ax.set_xticks(data_atlagkereset_filtered['Év'])
+    ax.set_title('Átlagkeresetek időbeli változása (Animáció)')
+    ax.set_xlabel('Év')
+    ax.set_ylabel('Bruttó Átlagkereset')
+    ax.legend()
+    ax.grid(visible=True, linestyle='--', alpha=0.5)
+
+    def update(frame):
+        """Frissíti az adatokat és az értékek megjelenítését minden frame-nél."""
+        # Hozzáadjuk az aktuális évet és átlagkeresetet
+        x_data.append(data_atlagkereset_filtered['Év'].iloc[frame])
+        y_data.append(data_atlagkereset_filtered['Bruttó Átlagkereset'].iloc[frame])
+
+        # Frissítjük a vonalat
+        line.set_data(x_data, y_data)
+
+        # Új értékek megjelenítése az aktuális pontoknál
+        for x, y in zip(x_data, y_data):
+            annotation = ax.text(x, y, f'{y:.0f}', fontsize=10, ha='center', va='bottom')
+            text_annotations.append(annotation)
+
+        return line, *text_annotations
+
+    ani = FuncAnimation(fig, update, frames=len(data_atlagkereset_filtered), interval=500, repeat=False)
     plt.show()
 
 def show_atlagkereset_regression():
@@ -148,14 +229,24 @@ root = tk.Tk()
 root.title("Interactive Graph Viewer")
 
 # Scatter Plot Buttons
+"""
 lakasar_button = tk.Button(root, text="Lakásár Vonaldiagram", command=show_lakasar_scatter)
 lakasar_button.pack(pady=5)
+"""
+
+animation_with_values_button = tk.Button(root, text="Lakásár Vonaldiagram Animáció", command=animate_lakasar_with_values)
+animation_with_values_button.pack(pady=5)
 
 lakasar_regression_button = tk.Button(root, text="Lakásár Regresszió", command=show_lakasar_regression)
 lakasar_regression_button.pack(pady=5)
 
+"""
 atlagkereset_button = tk.Button(root, text="Átlagkereset Vonaldiagram", command=show_atlagkereset_scatter)
 atlagkereset_button.pack(pady=5)
+"""
+
+animation_atlagkereset_button = tk.Button(root, text="Átlagkereset Vonaldiagramm Animáció", command=animate_atlagkereset_with_values)
+animation_atlagkereset_button.pack(pady=5)
 
 atlagkereset_regression_button = tk.Button(root, text="Átlagkereset Regresszió", command=show_atlagkereset_regression)
 atlagkereset_regression_button.pack(pady=5)
