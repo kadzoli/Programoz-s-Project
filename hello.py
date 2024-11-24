@@ -87,12 +87,9 @@ def animate_lakasar_with_values():
     # Beállítjuk az ábra paramétereit
     ax.set_xlim(data_lakasar_filtered['Év'].min(), data_lakasar_filtered['Év'].max())
     ax.set_ylim(data_lakasar_filtered['Lakásár Index'].min() - 10, data_lakasar_filtered['Lakásár Index'].max() + 10)
- main
 
     # Minden év címkéjének megjelenítése
     ax.set_xticks(data_lakasar_filtered['Év'])
-
- main
     ax.set_title('Lakásár Index Animáció Értékekkel')
     ax.set_xlabel('Év')
     ax.set_ylabel('Lakásár Index')
@@ -158,10 +155,8 @@ def animate_atlagkereset_with_values():
     ax.set_xlim(data_atlagkereset_filtered['Év'].min(), data_atlagkereset_filtered['Év'].max())
     ax.set_ylim(data_atlagkereset_filtered['Bruttó Átlagkereset'].min() - 5000, data_atlagkereset_filtered['Bruttó Átlagkereset'].max() + 5000)
 
-
     # Minden év címkéjének megjelenítése
     ax.set_xticks(data_atlagkereset_filtered['Év'])
-
     ax.set_title('Átlagkeresetek időbeli változása (Animáció)')
     ax.set_xlabel('Év')
     ax.set_ylabel('Bruttó Átlagkereset')
