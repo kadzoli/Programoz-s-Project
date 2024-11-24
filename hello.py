@@ -7,9 +7,15 @@ import tkinter as tk
 from tkinter import messagebox
 
 # File Paths
+
+file_path_lakasar = 'eves_lakasar_valtozas_2010_2023.xlsx'
+file_path_atlagkereset = 'magyar_atlagkereset_2010_2023.xlsx'
+file_path_atlagos_lakasar = 'atlagos_lakasar_2010_2023.xlsx'
+
 file_path_lakasar = 'C:/Users/Attika96/PycharmProjects/PythonProject/eves_lakasar_valtozas_2010_2023.xlsx'
 file_path_atlagkereset = 'C:/Users/Attika96/PycharmProjects/PythonProject/magyar_atlagkereset_2010_2023.xlsx'
 file_path_atlagos_lakasar = 'C:/Users/Attika96/PycharmProjects/PythonProject/atlagos_lakasar_2010_2023.xlsx'
+
 
 # Load Data from Excel files
 data_lakasar = pd.read_excel(file_path_lakasar)
@@ -81,6 +87,12 @@ def animate_lakasar_with_values():
     # Beállítjuk az ábra paramétereit
     ax.set_xlim(data_lakasar_filtered['Év'].min(), data_lakasar_filtered['Év'].max())
     ax.set_ylim(data_lakasar_filtered['Lakásár Index'].min() - 10, data_lakasar_filtered['Lakásár Index'].max() + 10)
+ main
+
+    # Minden év címkéjének megjelenítése
+    ax.set_xticks(data_lakasar_filtered['Év'])
+
+ main
     ax.set_title('Lakásár Index Animáció Értékekkel')
     ax.set_xlabel('Év')
     ax.set_ylabel('Lakásár Index')
@@ -145,6 +157,11 @@ def animate_atlagkereset_with_values():
     # Beállítjuk az ábra paramétereit
     ax.set_xlim(data_atlagkereset_filtered['Év'].min(), data_atlagkereset_filtered['Év'].max())
     ax.set_ylim(data_atlagkereset_filtered['Bruttó Átlagkereset'].min() - 5000, data_atlagkereset_filtered['Bruttó Átlagkereset'].max() + 5000)
+
+
+    # Minden év címkéjének megjelenítése
+    ax.set_xticks(data_atlagkereset_filtered['Év'])
+
     ax.set_title('Átlagkeresetek időbeli változása (Animáció)')
     ax.set_xlabel('Év')
     ax.set_ylabel('Bruttó Átlagkereset')
