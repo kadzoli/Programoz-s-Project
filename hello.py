@@ -61,7 +61,7 @@ model_atlagkereset = LinearRegression()
 model_atlagkereset.fit(X_atlagkereset, y_atlagkereset)
 
 # Define Plot Functions
-"""
+
 def show_lakasar_scatter():
     #Show scatter plot of housing market index.
     plt.figure(figsize=(10, 6))
@@ -75,7 +75,7 @@ def show_lakasar_scatter():
     plt.legend()
     plt.grid(visible=True, linestyle='--', alpha=0.5)
     plt.show()
-"""
+
 
 def animate_lakasar_with_values():
     """Create animation for housing market index with value labels."""
@@ -128,7 +128,7 @@ def show_lakasar_regression():
     plt.grid(visible=True, linestyle='--', alpha=0.5)
     plt.show()
 
-"""
+
 def show_atlagkereset_scatter():
     #Show scatter plot of average income.
     plt.figure(figsize=(10, 6))
@@ -142,7 +142,7 @@ def show_atlagkereset_scatter():
     plt.legend()
     plt.grid(visible=True, linestyle='--', alpha=0.5)
     plt.show()
-"""
+
 
 def animate_atlagkereset_with_values():
     """Create animation for average income scatter plot with values."""
@@ -235,23 +235,23 @@ root = tk.Tk()
 root.title("Interactive Graph Viewer")
 
 # Scatter Plot Buttons
-"""
-lakasar_button = tk.Button(root, text="Lakásár Vonaldiagram", command=show_lakasar_scatter)
-lakasar_button.pack(pady=5)
-"""
 
-animation_with_values_button = tk.Button(root, text="Lakásár Vonaldiagram Animáció", command=animate_lakasar_with_values)
+lakasar_button = tk.Button(root, text="Lakásár (Statikus) Vonaldiagram", command=show_lakasar_scatter)
+lakasar_button.pack(pady=5)
+
+
+animation_with_values_button = tk.Button(root, text="Lakásár (Animált) Vonaldiagram", command=animate_lakasar_with_values)
 animation_with_values_button.pack(pady=5)
 
 lakasar_regression_button = tk.Button(root, text="Lakásár Regresszió", command=show_lakasar_regression)
 lakasar_regression_button.pack(pady=5)
 
-"""
-atlagkereset_button = tk.Button(root, text="Átlagkereset Vonaldiagram", command=show_atlagkereset_scatter)
-atlagkereset_button.pack(pady=5)
-"""
 
-animation_atlagkereset_button = tk.Button(root, text="Átlagkereset Vonaldiagramm Animáció", command=animate_atlagkereset_with_values)
+atlagkereset_button = tk.Button(root, text="Átlagkereset (Statikus) Vonaldiagram", command=show_atlagkereset_scatter)
+atlagkereset_button.pack(pady=5)
+
+
+animation_atlagkereset_button = tk.Button(root, text="Átlagkereset (Animált) Vonaldiagramm", command=animate_atlagkereset_with_values)
 animation_atlagkereset_button.pack(pady=5)
 
 atlagkereset_regression_button = tk.Button(root, text="Átlagkereset Regresszió", command=show_atlagkereset_regression)
