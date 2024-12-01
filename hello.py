@@ -12,10 +12,6 @@ file_path_lakasar = 'eves_lakasar_valtozas_2010_2023.xlsx'
 file_path_atlagkereset = 'magyar_atlagkereset_2010_2023.xlsx'
 file_path_atlagos_lakasar = 'atlagos_lakasar_2010_2023.xlsx'
 
-file_path_lakasar = 'C:/Users/Attika96/PycharmProjects/PythonProject/eves_lakasar_valtozas_2010_2023.xlsx'
-file_path_atlagkereset = 'C:/Users/Attika96/PycharmProjects/PythonProject/magyar_atlagkereset_2010_2023.xlsx'
-file_path_atlagos_lakasar = 'C:/Users/Attika96/PycharmProjects/PythonProject/atlagos_lakasar_2010_2023.xlsx'
-
 
 # Load Data from Excel files
 data_lakasar = pd.read_excel(file_path_lakasar)
